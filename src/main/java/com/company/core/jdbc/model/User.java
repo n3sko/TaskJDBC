@@ -28,6 +28,7 @@ public class User {
         this.age = age;
     }
 
+    // TODO: 08.01.2023 Этот конструктор неправильный и не нужен вовсе
     public User(long id, String name, String lastname, int age
     ) {
     }

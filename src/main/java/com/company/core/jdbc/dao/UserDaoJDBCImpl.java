@@ -2,11 +2,8 @@ package com.company.core.jdbc.dao;
 
 import com.company.core.jdbc.model.User;
 import com.company.core.jdbc.util.ConnectionManager;
-
-import javax.naming.PartialResultException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +12,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     }
 
+    // TODO: 08.01.2023 контанты должны именоваться в upper case и быть более понятными CREATE_TABLE, DROP_TABLE, CLEAR_TABLE и тд
     private static final String SQL = """
             CREATE TABLE users(id SERIAL primary key,name varchar(100),lastName varchar(100),age integer);
             """;
@@ -41,6 +39,9 @@ public class UserDaoJDBCImpl implements UserDao {
              var prepareStatement = connection.prepareStatement(SQL)) {
             prepareStatement.execute();
         } catch (SQLException e) {
+            // TODO: 08.01.2023 Отлавливаем исключение и обрабатываем во всех методаха DAO
+            // TODO: 08.01.2023 Прокидывать новое исключение не нужно, т.к мы не хотим, чтобы наша программа падала
+            // TODO: 08.01.2023 Пример: e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -82,6 +83,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (var connection = ConnectionManager.open();
         var prepareStatement=connection.prepareStatement(getAllUsers)) {
             var resultSet=prepareStatement.executeQuery();
+            // TODO: 08.01.2023 Коллекции обычно именуют во множественном числе users
             List<User>user=new ArrayList<>();
             while (resultSet.next()){
                 user.add(buildUser(resultSet));
@@ -93,6 +95,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     }
 
+    // TODO: 08.01.2023 В классе User реализован конструктор User(String name, String lastName, Byte age), его и используем для создания объекта
     private static User buildUser(ResultSet resultSet) throws SQLException {
         return new User(resultSet.getLong("id"),
                 resultSet.getString("name"),

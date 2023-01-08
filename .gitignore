@@ -1,2 +1,5 @@
-/camunda-mdm/fts-redirect/.idea/
-/.idea/
+.idea
+target
+*.iml
+*.class
+*.log

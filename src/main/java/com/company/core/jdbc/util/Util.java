@@ -5,15 +5,14 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Util {
+    // реализуйте настройку соеденения с БД
     private static final Properties PROPERTIES = new Properties();
 
     static {
         loadProperties();
     }
 
-
     public Util() {
-
     }
 
     public static String getProperty(String key) {
@@ -28,5 +27,3 @@ public class Util {
         }
     }
 }
-// реализуйте настройку соеденения с БД
-
